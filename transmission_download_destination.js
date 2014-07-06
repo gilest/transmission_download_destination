@@ -5,9 +5,11 @@
 // @description  Allows the saving and loading of multiple download destinations in the Transmission remote web interface
 // @match      http://*/transmission/web/
 // @copyright  2014, Giles Thompson
+// @grant       GM_getValue
+// @grant       GM_setValue
 // ==/UserScript==
 
-(function() {
+(function () {
 
   // JAVASCRIPT
   // ====================
@@ -64,26 +66,36 @@
   };
 
   var init = function () {
+
     // save the form we are tweaking so that we can add stuff to it
     var form = document.getElementById('torrent_upload_form');
+
+    // widen the dialog window
+    var upload_container = document.getElementById('upload_container');
+    dialog_window = upload_container.children[1]
+    dialog_window.setAttribute('style', 'width: 480px !important')
 
     // create a button for adding the currently entered destination
     var add_destination_button = document.createElement('a');
     add_destination_button.setAttribute('href', '#add_destination');
     add_destination_button.setAttribute('id', 'add_destination_button');
+    add_destination_button.setAttribute('style', 'position: absolute !important; right: 0px !important; top: 165px; width: 103px !important;');
     add_destination_button.innerHTML = 'Add destination';
 
     // create a select list for choosing from saved destinations
     destination_select = document.createElement('select');
     destination_select.setAttribute('id', 'destination_select');
+    destination_select.setAttribute('style', 'position: absolute !important; left: 103px !important; top: 211px !important; width: 232px;');
 
     var remove_destination_button = document.createElement('a');
     remove_destination_button.setAttribute('href', '#remove_destination');
     remove_destination_button.setAttribute('id', 'remove_destination_button');
+    remove_destination_button.setAttribute('style', 'width: 103px !important; position: absolute !important; right: 0 !important;top: 199px !important;');
     remove_destination_button.innerHTML = 'Remove';
 
     // convenience assignation
     var destination_field = document.getElementById('add-dialog-folder-input');
+    destination_field.setAttribute('style', 'width: 220px !important; margin-bottom: 34px !important');
 
     update_destination_select();
 
@@ -131,14 +143,5 @@
   };
 
   init();
-
-  // CSS style overrides
-  // ====================
-
-  GM_addStyle('.dialog_window { width: 480px !important; }');
-  GM_addStyle('#add_destination_button { position: absolute !important; right: 0px !important; top: 165px; width: 103px !important; }');
-  GM_addStyle('#add-dialog-folder-input { width: 220px !important; margin-bottom: 34px !important }');
-  GM_addStyle('#destination_select { position: absolute !important; left: 103px !important; top: 211px !important; width: 232px; }');
-  GM_addStyle('#remove_destination_button { width: 103px !important; position: absolute !important; right: 0 !important;top: 199px !important; }');
 
 })();
