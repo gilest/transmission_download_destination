@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Trasmission Download Destination
 // @namespace  http://gilesthompson.co.nz/
-// @version    0.1
+// @version    0.2
 // @description  Allows the saving and loading of multiple download destinations in the Transmission remote web interface
 // @match      http://*/transmission/web/
 // @copyright  2014, Giles Thompson
